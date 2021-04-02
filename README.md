@@ -1,24 +1,20 @@
-# README
+# Wisper Example
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This example shows how to use the `wisper` gem for event-based processing.  See
+[Wisper](https://github.com/krisleech/wisper) for more details.
 
-Things you may want to cover:
+A single `EchoController` publishes events.
 
-* Ruby version
+A single subscriber listens for events.  It is registered in the `wisper.rb`
+initializer.  It listens only to a single specific event type.
 
-* System dependencies
+## Running the Server
 
-* Configuration
+You can start the application with:
 
-* Database creation
+> $ bin/rails server
 
-* Database initialization
+And use the base URL http://localhost:3000/echo/index
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`GET` requests will get echoed in the Rails logs, and all other events internal
+to Rails will be listed there too.
