@@ -12,9 +12,8 @@ initializer.  It listens only to a single specific event type.
 
 You can start the application with:
 
-> $ bin/rails server
+    $ bin/rails server
 
 And use the base URL http://localhost:3000/echo/index
 
-`GET` requests will get echoed in the Rails logs, and all other events internal
-to Rails will be listed there too.
+`GET` requests will get echoed in the Sidekiq logs.
