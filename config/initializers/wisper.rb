@@ -1,1 +1,1 @@
-Wisper.subscribe(EchoSubscriber.new)
+Wisper.subscribe(EchoSubscriber)
