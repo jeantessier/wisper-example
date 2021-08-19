@@ -1,1 +1,1 @@
-Wisper.subscribe(EchoSubscriber)
+Wisper.subscribe(EchoSubscriber, broadcaster: :kafka)
