@@ -45,3 +45,49 @@ http POST :3000/echo/index
 ```bash
 http :3000/echo/index name='Jean Tessier'
 ```
+
+## Problems
+
+Events get published to a Kafka topic, but the Kafka message has an empty
+`subscriber` section (actually an empty hash, `{}`).  This confuses the Kafka
+consumer, which expects it to be a string instead.
+
+Here is an example Kafka message:
+
+```json
+{
+  "subscriber": {},
+  "event": "echo",
+  "args": [
+    "world"
+  ]
+}
+```
+
+I suspect this is because I use a global subscriber, attached using
+`Wisper.subscribe`, instead of subscribing to the producer directly.  In this
+case, the subscriber is a controller, so I cannot really subscribe to it ahead
+of time.
+
+When I fed a message with the proper `subscriber` value, the consumer was able
+to process it just fine.
+
+This command injects the message on the Kafka topic:
+
+```bash
+kafkacat -P -b localhost -t wisper_events <<MSG
+{"subscriber":"EchoSubscriber","event":"echo","args":["world"]}
+MSG
+```
+
+This is the resulting message:
+
+```json
+{
+  "subscriber": "EchoSubscriber",
+  "event": "echo",
+  "args": [
+    "world"
+  ]
+}
+```
